@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/slide4">
+        android:src="@drawable/slide1">
     </ImageView>
 
 </LinearLayout>

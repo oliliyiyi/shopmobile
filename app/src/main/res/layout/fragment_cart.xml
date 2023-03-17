@@ -99,17 +99,21 @@
                 android:id="@+id/edt_cart_cust_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:layout_below="@+id/info_cust"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/custom_edit_text"
-                android:padding="10dp"
-                android:hint="Họ Tên"
-                android:fontFamily="sans-serif-light"
-                android:textSize="17sp"
-                android:textColor="@color/text_color"
                 android:drawableLeft="@drawable/ic_baseline_account_box_24"
-                android:drawablePadding="10dp">
-            </EditText>
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:hint="Họ Tên"
+                android:padding="10dp"
+                android:textColor="@color/text_color"
+                android:textSize="17sp"></EditText>
 
             <EditText
                 android:id="@+id/edt_cart_cust_address"

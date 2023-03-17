@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -23,14 +25,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ssv.appsalephone.Adapter.ProductAdapter;
 import com.ssv.appsalephone.Adapter.ProductSearchAdapter;
 import com.ssv.appsalephone.Adapter.SlidePhotoAdapter;
 import com.ssv.appsalephone.Class.Product;
+import com.ssv.appsalephone.Class.ProductResponse;
 import com.ssv.appsalephone.Class.SlidePhoto;
 import com.ssv.appsalephone.Home;
 import com.ssv.appsalephone.R;
+import com.ssv.appsalephone.api.ApiService;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +46,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductFragment extends Fragment {
 
@@ -72,10 +85,9 @@ public class ProductFragment extends Fragment {
 
         // Set Adapter cho viewPagerSlidePhoto
         setDataSlidePhotoAdapter();
-
         // Set Adapter cho rcvProduct
         setDataProductAdapter();
-
+        getDataProduct();
         return mView;
     }
 
@@ -89,7 +101,7 @@ public class ProductFragment extends Fragment {
         atcProductSearch = mView.findViewById(R.id.atc_product_search);
 
         listSlidePhoto = getListSlidePhoto();
-        listAllProduct = getDataProduct();
+//        listAllProduct = getDataProduct();
 
         home = (Home) getActivity();
     }
@@ -174,36 +186,31 @@ public class ProductFragment extends Fragment {
         return listSlidePhoto;
     }
 
-    // Lấy dữ liệu Product từ FireBase
-    private List<Product> getDataProduct(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("DbProduct");
+    private void getDataProduct(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://demo7879288.mockable.io/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService apiService = retrofit.create(ApiService.class);
 
-        List<Product> mListProduct = new ArrayList<>();
+        Call<List<Product>> call = apiService.getProducts();
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        call.enqueue(new Callback<List<Product>>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                productAdapter.notifyDataSetChanged();
-
-                for (DataSnapshot data : snapshot.getChildren()){
-                    Product product = data.getValue(Product.class);
-                    product.setId(data.getKey());
-                    mListProduct.add(product);
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful()) {
+                    List<Product> productList = response.body();
+                    productAdapter.setData(productList, home);
+                } else {
+                    Toast.makeText(getActivity(), "Failed to retrieve data from API", Toast.LENGTH_SHORT).show();
                 }
-                setProductSearchAdapter(mListProduct);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),"Không tải được dữ liệu từ firebase"
-                        +error.toString(),Toast.LENGTH_LONG).show();
-                Log.d("MYTAG","onCancelled"+ error.toString());
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Failed to retrieve data from API", Toast.LENGTH_SHORT).show();
+                Log.d("MYTAG", "onFailure: " + t.getMessage());
             }
         });
-        return mListProduct;
     }
-
-    // endregion
-
 }

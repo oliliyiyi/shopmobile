@@ -1,5 +1,7 @@
 package com.ssv.appsalephone.Class;
 
+import java.util.List;
+
 public class Product {
 
     private String id;
