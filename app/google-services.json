@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "490942454286",
+    "project_id": "appsalephone",
+    "storage_bucket": "appsalephone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490942454286:android:70f7e6e8cd96fa3294fa5f",
+        "android_client_info": {
+          "package_name": "com.ssv.appsalephone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "490942454286-lalsjncdfh1do8mfakun6prdpmv177ec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYMVQ0LQD4IrmamcGO8LObwp7HD-HTcmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "490942454286-lalsjncdfh1do8mfakun6prdpmv177ec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
