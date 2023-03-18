@@ -1,5 +1,6 @@
 package com.ssv.appsalephone.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -54,6 +56,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductFragment extends Fragment {
 
+
     // region Variable
 
     private Home home;
@@ -70,10 +73,14 @@ public class ProductFragment extends Fragment {
     private ProductAdapter productAdapter;
     private SlidePhotoAdapter slidePhotoAdapter;
 
+    private Button apple_cate, oppo_cate, samsung_cate, xiaomi_cate, realme_cate, all_product;
+
     // endregion Variable
 
     public ProductFragment() {
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,6 +95,7 @@ public class ProductFragment extends Fragment {
         // Set Adapter cho rcvProduct
         setDataProductAdapter();
         getDataProduct();
+        moveToCatePage();
         return mView;
     }
 
@@ -199,8 +207,8 @@ public class ProductFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful()) {
-                    List<Product> productList = response.body();
-                    productAdapter.setData(productList, home);
+                    listAllProduct = response.body();
+                    productAdapter.setData(listAllProduct, home);
                 } else {
                     Toast.makeText(getActivity(), "Failed to retrieve data from API", Toast.LENGTH_SHORT).show();
                 }
@@ -210,6 +218,105 @@ public class ProductFragment extends Fragment {
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 Toast.makeText(getActivity(), "Failed to retrieve data from API", Toast.LENGTH_SHORT).show();
                 Log.d("MYTAG", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    public void moveToCatePage(){
+        apple_cate = mView.findViewById(R.id.apple_cate);
+        oppo_cate = mView.findViewById(R.id.oppo_cate);
+        samsung_cate = mView.findViewById(R.id.samsung_cate);
+        xiaomi_cate = mView.findViewById(R.id.xiaomi_cate);
+        realme_cate = mView.findViewById(R.id.realme_cate);
+        all_product = mView.findViewById(R.id.all_product);
+
+        all_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+
+                        filteredProducts.add(product);
+
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        apple_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+                    if (product.getBrand().equals("APPLE")) {
+                        filteredProducts.add(product);
+                    }
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        oppo_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+                    if (product.getBrand().equals("OPPO")) {
+                        filteredProducts.add(product);
+                    }
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        samsung_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+                    if (product.getBrand().equals("SAMSUNG")) {
+                        filteredProducts.add(product);
+                    }
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        xiaomi_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+                    if (product.getBrand().equals("XIAOMI")) {
+                        filteredProducts.add(product);
+                    }
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        realme_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+                    if (product.getBrand().equals("REALME")) {
+                        filteredProducts.add(product);
+                    }
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
             }
         });
     }

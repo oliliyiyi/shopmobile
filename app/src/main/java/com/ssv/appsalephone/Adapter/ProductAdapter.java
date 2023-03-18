@@ -15,6 +15,7 @@ import com.ssv.appsalephone.Home;
 import com.ssv.appsalephone.R;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -22,15 +23,43 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private DecimalFormat formatPrice = new DecimalFormat("###,###,###");
     private List<Product> mListProduct;
     private Home home;
+    private List<Product> mFilteredProducts;
+
+
 
     // Khai báo Interface giúp cho việc click vào phần tử của recycleview
     public interface IClickItemProductListener{
         void onClickItemProduct(Product product);
     }
 
+    public void ProductFilterAdapter(List<Product> products) {
+        mListProduct = products;
+        mFilteredProducts = new ArrayList<>(mListProduct);
+    }
+
+//    filter
+    public void filter(String query) {
+        mFilteredProducts.clear();
+        if (query.isEmpty()) {
+            mFilteredProducts.addAll(mListProduct);
+        } else {
+            for (Product product : mListProduct) {
+                if (product.getProductName().toLowerCase().contains(query.toLowerCase())) {
+                    mFilteredProducts.add(product);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public void setData(List<Product> mList, Home home) {
         this.mListProduct = mList;
         this.home = home;
+        notifyDataSetChanged();
+    }
+
+    public void setProducts(List<Product> products) {
+        this.mListProduct = products;
         notifyDataSetChanged();
     }
 
