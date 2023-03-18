@@ -73,7 +73,7 @@ public class ProductFragment extends Fragment {
     private ProductAdapter productAdapter;
     private SlidePhotoAdapter slidePhotoAdapter;
 
-    private Button apple_cate, oppo_cate, samsung_cate, xiaomi_cate, redmi_cate;
+    private Button apple_cate, oppo_cate, samsung_cate, xiaomi_cate, realme_cate, all_product;
 
     // endregion Variable
 
@@ -227,7 +227,23 @@ public class ProductFragment extends Fragment {
         oppo_cate = mView.findViewById(R.id.oppo_cate);
         samsung_cate = mView.findViewById(R.id.samsung_cate);
         xiaomi_cate = mView.findViewById(R.id.xiaomi_cate);
-        redmi_cate = mView.findViewById(R.id.redmi_cate);
+        realme_cate = mView.findViewById(R.id.realme_cate);
+        all_product = mView.findViewById(R.id.all_product);
+
+        all_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+
+                        filteredProducts.add(product);
+
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
 
         apple_cate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +266,51 @@ public class ProductFragment extends Fragment {
                 List<Product> filteredProducts = new ArrayList<>();
                 for (Product product : listAllProduct) {
                     if (product.getBrand().equals("OPPO")) {
+                        filteredProducts.add(product);
+                    }
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        samsung_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+                    if (product.getBrand().equals("SAMSUNG")) {
+                        filteredProducts.add(product);
+                    }
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        xiaomi_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+                    if (product.getBrand().equals("XIAOMI")) {
+                        filteredProducts.add(product);
+                    }
+                }
+                // Cập nhật danh sách sản phẩm hiển thị trên RecyclerView
+                productAdapter.setProducts(filteredProducts);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        realme_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : listAllProduct) {
+                    if (product.getBrand().equals("REALME")) {
                         filteredProducts.add(product);
                     }
                 }
