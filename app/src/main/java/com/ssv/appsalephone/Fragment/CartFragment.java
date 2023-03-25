@@ -1,5 +1,7 @@
 package com.ssv.appsalephone.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -90,6 +92,7 @@ public class CartFragment extends Fragment {
         edtCartCustAddress = mView.findViewById(R.id.edt_cart_cust_address);
         edtCartCustPhone = mView.findViewById(R.id.edt_cart_cust_phone);
         btnCartOrder = mView.findViewById(R.id.btn_cart_order);
+        home = (Home) getActivity();
         btnCartOrder.setOnClickListener(new View.OnClickListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -98,6 +101,7 @@ public class CartFragment extends Fragment {
 
                 // Thêm dữ liệu các thông tin đã order
                 addDataOrder();
+
             }
         });
 
@@ -181,10 +185,15 @@ public class CartFragment extends Fragment {
                             .setValue(detailOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getContext(),"Đã đăng ký đơn hàng",Toast.LENGTH_SHORT).show();
-                            listCartProduct.clear();
-                            setVisibilityEmptyCart();
-                            home.setCountProductInCart(0);
+                            Activity activity = getActivity();
+                            if (activity != null) {
+                                Context context = activity.getApplicationContext();
+                                Toast.makeText(context, "Đã đăng ký đơn hàng", Toast.LENGTH_SHORT).show();
+                                listCartProduct.clear();
+                                setVisibilityEmptyCart();
+                                home.setCountProductInCart(0);
+                                home.toLoginFragment();
+                            }
                         }
                     });
 

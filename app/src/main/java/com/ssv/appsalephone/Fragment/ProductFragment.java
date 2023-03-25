@@ -1,5 +1,6 @@
 package com.ssv.appsalephone.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -115,6 +117,8 @@ public class ProductFragment extends Fragment {
 
         home = (Home) getActivity();
     }
+
+
 
     // Set Adapter cho viewPagerSlidePhoto
     private void setDataSlidePhotoAdapter(){
