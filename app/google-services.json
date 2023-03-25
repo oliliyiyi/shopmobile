@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "490942454286",
-    "project_id": "appsalephone",
-    "storage_bucket": "appsalephone.appspot.com"
+    "project_number": "616571395835",
+    "firebase_url": "https://sell-phone-fb411-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sell-phone-fb411",
+    "storage_bucket": "sell-phone-fb411.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:490942454286:android:70f7e6e8cd96fa3294fa5f",
+        "mobilesdk_app_id": "1:616571395835:android:122e463296beaaf0d09a5e",
         "android_client_info": {
           "package_name": "com.ssv.appsalephone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "490942454286-lalsjncdfh1do8mfakun6prdpmv177ec.apps.googleusercontent.com",
+          "client_id": "616571395835-uuql6tve1gng83bgcj427695qp2bju9q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCYMVQ0LQD4IrmamcGO8LObwp7HD-HTcmI"
+          "current_key": "AIzaSyBNsAOUw4uFEm79qtdgJ5f1eA39kAYBRZo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "490942454286-lalsjncdfh1do8mfakun6prdpmv177ec.apps.googleusercontent.com",
+              "client_id": "616571395835-uuql6tve1gng83bgcj427695qp2bju9q.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

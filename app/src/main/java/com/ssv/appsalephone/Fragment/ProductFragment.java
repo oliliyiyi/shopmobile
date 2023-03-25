@@ -92,6 +92,8 @@ public class ProductFragment extends Fragment {
 
         // Set Adapter cho viewPagerSlidePhoto
         setDataSlidePhotoAdapter();
+        // Set adpter cho search
+        setProductSearchAdapter();
         // Set Adapter cho rcvProduct
         setDataProductAdapter();
         getDataProduct();
@@ -170,17 +172,56 @@ public class ProductFragment extends Fragment {
     }
 
     // Set Adapter cho atcProductSearch
-    private void setProductSearchAdapter(List<Product> listProduct ){
-        ProductSearchAdapter productSearchAdapter = new ProductSearchAdapter(home,R.layout.item_search, listProduct);
-        atcProductSearch.setAdapter(productSearchAdapter);
+//    private void setProductSearchAdapter(List<Product> listProduct ){
+//        ProductSearchAdapter productSearchAdapter = new ProductSearchAdapter(home,R.layout.item_search, listProduct);
+//        atcProductSearch.setAdapter(productSearchAdapter);
+//
+//        // Sau khi chọn item search sẽ chuyển sang fragment detail
+//        atcProductSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                home.toDetailProductFragment(listProduct.get(position));
+//            }
+//        });
+//    }
 
-        // Sau khi chọn item search sẽ chuyển sang fragment detail
-        atcProductSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void setProductSearchAdapter(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://demo7879288.mockable.io/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<List<Product>> call = apiService.getProducts();
+
+        call.enqueue(new Callback<List<Product>>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                home.toDetailProductFragment(listProduct.get(position));
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful()) {
+                    List<Product> productList = response.body();
+                    ProductSearchAdapter productSearchAdapter = new ProductSearchAdapter(home,R.layout.item_search, productList);
+                    atcProductSearch.setAdapter(productSearchAdapter);
+
+                    // Sau khi chọn item search sẽ chuyển sang fragment detail
+                    atcProductSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            home.toDetailProductFragment(productList.get(position));
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "Failed to retrieve data from API", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Failed to retrieve data from API", Toast.LENGTH_SHORT).show();
+                Log.d("MYTAG", "onFailure: " + t.getMessage());
             }
         });
+
+
     }
 
     // Lấy Product để vào slide
