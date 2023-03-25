@@ -1,5 +1,6 @@
 package com.ssv.appsalephone.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -10,10 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+
 import com.ssv.appsalephone.Home;
 import com.ssv.appsalephone.R;
 
 public class LoginFragment extends Fragment {
+
+
+
+
     // Activity
     private Home home;
 
@@ -33,6 +40,7 @@ public class LoginFragment extends Fragment {
         initItem();
         setValueItem();
         return mView;
+
     }
 
     // region Private menthod
@@ -44,11 +52,16 @@ public class LoginFragment extends Fragment {
         usernameEditText = mView.findViewById(R.id.username);
         passwordEditText = mView.findViewById(R.id.password);
 
+
+
     }
     private void setValueItem(){
+
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                SignIn();
 
                 if (usernameEditText.getText().length() > 0 && passwordEditText.getText().length() > 0) {
                     String toastMessage = "Username: " + usernameEditText.getText().toString() + ", Password: " + passwordEditText.getText().toString();
@@ -62,7 +75,10 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+
+
     }
-    // endregion Private menthod
+
+
 
 }
