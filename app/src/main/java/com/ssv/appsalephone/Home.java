@@ -12,6 +12,7 @@ import com.ssv.appsalephone.Class.Product;
 import com.ssv.appsalephone.Fragment.CartFragment;
 import com.ssv.appsalephone.Fragment.DetailProductFragment;
 import com.ssv.appsalephone.Fragment.HistoryFragment;
+import com.ssv.appsalephone.Fragment.LoginFragment;
 import com.ssv.appsalephone.Fragment.OrderInfoFragment;
 import com.ssv.appsalephone.Fragment.ProductFragment;
 import java.util.ArrayList;
@@ -131,6 +132,18 @@ public class Home extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.contet_frame, new OrderInfoFragment(orderInfo));
         fragmentTransaction.addToBackStack(OrderInfoFragment.TAG);
+        fragmentTransaction.commit();
+    }
+
+    public void toLoginFragment(){
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.contet_frame, new LoginFragment());
+        fragmentTransaction.commit();
+    }
+
+    public void toCartFragment(){
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.contet_frame, new CartFragment(listCartProduct));
         fragmentTransaction.commit();
     }
 

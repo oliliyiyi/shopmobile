@@ -91,6 +91,7 @@ public class CartFragment extends Fragment {
         edtCartCustPhone = mView.findViewById(R.id.edt_cart_cust_phone);
         btnCartOrder = mView.findViewById(R.id.btn_cart_order);
         btnCartOrder.setOnClickListener(new View.OnClickListener() {
+
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {

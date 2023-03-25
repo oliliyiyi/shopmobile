@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.ProductFragment"
     android:orientation="vertical"
-    android:background="@color/red">
+    android:background="@color/orange">
 
     <ScrollView
         android:layout_width="match_parent"
